@@ -818,6 +818,8 @@ Runner.prototype = {
     let finalScore = this.distanceMeter.getActualDistance();
     console.log(`🚀 Score avant envoi à leaderboard : ${finalScore}`); // 🔍 Vérifie ici
     showLeaderboard(finalScore);
+    console.log("Valeur de getActualDistance():", this.distanceMeter.getActualDistance());
+    console.log("Valeur directe de distanceRan:", this.distanceRan);
   },
 
   stop: function() {
