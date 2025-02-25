@@ -1,7 +1,7 @@
 import { saveScore, getLeaderboard } from "./firebase.js";
 
 function showLeaderboard(finalScore) {
-    let playerName = prompt("Entrez votre nom pour le leaderboard :") || "Anonyme";
+    let playerName = prompt("Your name :") || "Anonyme";
     saveScore(playerName, finalScore);
 
     getLeaderboard((scores) => {
