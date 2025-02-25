@@ -25,14 +25,16 @@ export function saveScore(playerName, score) {
 
 // 🔥 Fonction pour récupérer les meilleurs scores
 export async function getLeaderboard(callback) {
-    const scoresRef = query(ref(database, "leaderboard"), orderByChild("score"), limitToLast(5));
+    const scoresRef = query(ref(database, "leaderboard"), orderByChild("score"));
     const snapshot = await get(scoresRef);
-    const scores = [];
-    
+    let scores = [];
+
     snapshot.forEach(child => scores.push(child.val()));
 
-    console.log("🏆 Scores récupérés depuis Firebase :", scores); // 🔍 Vérifier les données récupérées
-    
-    scores.reverse(); // Trier du plus grand au plus petit
+    // 🔹 Trier par score décroissant et garder les 5 meilleurs
+    scores = scores.sort((a, b) => b.score - a.score).slice(0, 5);
+
+    console.log("🏆 Scores récupérés et triés :", scores); // Vérifier que le tri fonctionne
+
     callback(scores);
 }
