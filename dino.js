@@ -738,6 +738,9 @@ Runner.prototype = {
       // Check that enough time has elapsed before allowing jump key to restart.
       var deltaTime = getTimeStamp() - this.time;
 
+      // 🔹 Ensure the leaderboard disappears even if `isCanvasInView()` blocks the restart.
+      hideLeaderboard();
+
       if (this.isCanvasInView() &&
           (Runner.keycodes.RESTART[keyCode] || this.isLeftClickOnCanvas(e) ||
           (deltaTime >= this.config.GAMEOVER_CLEAR_TIME &&
@@ -810,6 +813,10 @@ Runner.prototype = {
 
     // Reset the time clock.
     this.time = getTimeStamp();
+
+    // 🔹 Show the leaderboard after everything else is updated
+    let finalScore = this.distanceMeter.getActualDistance();
+    showLeaderboard(finalScore);
   },
 
   stop: function() {
@@ -847,6 +854,10 @@ Runner.prototype = {
       this.playSound(this.soundFx.BUTTON_PRESS);
       this.invert(true);
       this.bdayFlashTimer = null;
+
+      // 🔹 S’assurer que le leaderboard est bien caché après un restart
+      setTimeout(hideLeaderboard, 0);
+
       this.update();
     }
   },
