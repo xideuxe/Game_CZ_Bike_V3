@@ -816,6 +816,7 @@ Runner.prototype = {
 
     // 🔹 Show the leaderboard after everything else is updated
     let finalScore = this.distanceMeter.getActualDistance();
+    console.log(`🚀 Score avant envoi à leaderboard : ${finalScore}`); // 🔍 Vérifie ici
     showLeaderboard(finalScore);
   },
 
