@@ -1,8 +1,8 @@
 // 🔥 Importer Firebase depuis le CDN
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getDatabase, ref, push, query, orderByChild, limitToLast, get } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+import { getDatabase, ref, push, get } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
-// 🔥 Configuration Firebase (REMPLACE LES VALEURS AVEC LES TIENNES)
+// 🔥 Configuration Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyDsOnq-gDJpYqEppwyp8bHLDkjiVsPlaDI",
   authDomain: "cz-game-v3.firebaseapp.com",
@@ -17,25 +17,30 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-// 🔥 Fonction pour sauvegarder un score dans la base de données Firebase
+// 🔥 Fonction pour sauvegarder un score dans Firebase
 export function saveScore(playerName, score) {
-    console.log(`🔥 Enregistrement dans Firebase : ${playerName} - ${score}`); // 🔥 Vérifie ici
+    console.log(`🔥 Enregistrement dans Firebase : ${playerName} - ${score}`);
     push(ref(database, "leaderboard"), { name: playerName, score: score });
 }
 
-// 🔥 Fonction pour récupérer les meilleurs scores
+// 🔥 Fonction pour récupérer les 5 meilleurs scores
 export async function getLeaderboard(callback) {
-    const scoresRef = ref(database, "leaderboard"); // Pas de orderByChild()
+    const scoresRef = ref(database, "leaderboard"); // 🔥 Récupérer tous les scores
     const snapshot = await get(scoresRef);
-    console.log("🔥 Données brutes récupérées :", snapshot.val());
-    let scores = [];
+    
+    if (!snapshot.exists()) {
+        console.log("⚠️ Aucun score trouvé dans Firebase.");
+        callback([]); // Retourne une liste vide si rien n'est trouvé
+        return;
+    }
 
+    let scores = [];
     snapshot.forEach(child => scores.push(child.val()));
 
     // 🔹 Trier par score décroissant et garder les 5 meilleurs
     scores = scores.sort((a, b) => b.score - a.score).slice(0, 5);
 
-    console.log("🏆 Scores récupérés et triés :", scores); // Vérifier que le tri fonctionne
+    console.log("🏆 Scores récupérés et triés :", scores);
 
     callback(scores);
 }
