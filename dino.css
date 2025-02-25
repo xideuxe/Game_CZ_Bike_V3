@@ -579,19 +579,15 @@ html[subframe] body {
   padding: 0;
 }
 
-#leaderboard-list li {
-  padding: 5px;
-  font-size: 12px;
-}
-
-/* 🏆 Style pour le Top 3 */
-#leaderboard-list li:first-child { color: gold; font-size: 16px; font-weight: bold; } /* 🥇 Or */
-#leaderboard-list li:nth-child(2) { color: silver; font-size: 15px; font-weight: bold; } /* 🥈 Argent */
-#leaderboard-list li:nth-child(3) { color: #cd7f32; font-size: 14px; font-weight: bold; } /* 🥉 Bronze */
-
-/* Séparation entre Nom et Score */
 .leaderboard-entry {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  padding: 5px;
+  font-size: 12px;
 }
+
+/* 🏆 Style pour le Top 3 (via les classes JS) */
+.gold { color: gold; font-size: 16px; font-weight: bold; }   /* 🥇 Or */
+.silver { color: silver; font-size: 15px; font-weight: bold; } /* 🥈 Argent */
+.bronze { color: #cd7f32; font-size: 14px; font-weight: bold; } /* 🥉 Bronze */
