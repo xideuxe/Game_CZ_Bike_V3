@@ -549,56 +549,49 @@ html[subframe] body {
 }
 
 /* 🔥 Leaderboard Styling 🔥 */
+/* Importation de la police rétro */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 #leaderboard {
+  font-family: 'Press Start 2P', cursive; /* Style rétro */
+  font-size: 14px;
+  text-align: center;
+  background: white;
+  padding: 15px;
+  border: 2px solid black;
+  border-radius: 10px;
+  box-shadow: 5px 5px 0px black;
+  width: 300px;
   position: fixed;
   top: 20px;
   right: 20px;
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  border: 2px solid black;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
-  font-family: Arial, sans-serif;
-  width: 250px;
-  text-align: center;
-  display: none; /* Caché par défaut */
 }
 
 #leaderboard h3 {
-  margin: 0 0 10px;
   font-size: 18px;
-  font-weight: bold;
+  text-transform: uppercase;
+  color: black;
+  margin-bottom: 10px;
 }
 
 #leaderboard-list {
   list-style: none;
   padding: 0;
-  margin: 0;
 }
 
 #leaderboard-list li {
-  font-size: 16px;
-  padding: 6px;
-  border-bottom: 1px solid #ddd;
+  padding: 5px;
+  font-size: 12px;
+}
+
+/* 🏆 Style pour le Top 3 */
+#leaderboard-list li:first-child { color: gold; font-size: 16px; font-weight: bold; } /* 🥇 Or */
+#leaderboard-list li:nth-child(2) { color: silver; font-size: 15px; font-weight: bold; } /* 🥈 Argent */
+#leaderboard-list li:nth-child(3) { color: #cd7f32; font-size: 14px; font-weight: bold; } /* 🥉 Bronze */
+
+/* Séparation entre Nom et Score */
+.leaderboard-entry {
   display: flex;
   justify-content: space-between;
-  font-weight: bold;
-}
-
-#leaderboard-list li:last-child {
-  border-bottom: none;
-}
-
-/* 🏆 Style spécial pour les top scores */
-#leaderboard-list li:nth-child(1) {
-  color: #FFD700; /* Or */
-  font-size: 18px;
-}
-
-#leaderboard-list li:nth-child(2) {
-  color: #C0C0C0; /* Argent */
-}
-
-#leaderboard-list li:nth-child(3) {
-  color: #CD7F32; /* Bronze */
+  width: 100%;
 }
