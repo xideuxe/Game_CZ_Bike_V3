@@ -6,7 +6,7 @@ import { getDatabase, ref, push, query, orderByChild, limitToLast, get } from "h
 const firebaseConfig = {
   apiKey: "AIzaSyDsOnq-gDJpYqEppwyp8bHLDkjiVsPlaDI",
   authDomain: "cz-game-v3.firebaseapp.com",
-  databaseURL: "https://cz-game-v3-default-rtdb.firebaseio.com", // Ajoute cette ligne si elle manque
+  databaseURL: "https://cz-game-v3-default-rtdb.europe-west1.firebasedatabase.app/",
   projectId: "cz-game-v3",
   storageBucket: "cz-game-v3.appspot.com",
   messagingSenderId: "538971726457",
