@@ -19,6 +19,7 @@ const database = getDatabase(app);
 
 // 🔥 Fonction pour sauvegarder un score dans la base de données Firebase
 export function saveScore(playerName, score) {
+    console.log(`🔥 Enregistrement dans Firebase : ${playerName} - ${score}`); // 🔥 Vérifie ici
     push(ref(database, "leaderboard"), { name: playerName, score: score });
 }
 
