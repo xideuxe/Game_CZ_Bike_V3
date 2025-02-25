@@ -815,7 +815,7 @@ Runner.prototype = {
     this.time = getTimeStamp();
 
     // 🔹 Show the leaderboard after everything else is updated
-    let finalScore = this.distanceMeter.getActualDistance();
+    let finalScore = this.distanceMeter.getActualDistance(this.distanceRan);
     console.log(`🚀 Score avant envoi à leaderboard : ${finalScore}`); // 🔍 Vérifie ici
     showLeaderboard(finalScore);
     console.log("Valeur de getActualDistance():", this.distanceMeter.getActualDistance());
