@@ -25,22 +25,25 @@ export function saveScore(playerName, score) {
 
 // 🔥 Fonction pour récupérer les 5 meilleurs scores
 export async function getLeaderboard(callback) {
-    const scoresRef = ref(database, "leaderboard"); // 🔥 Récupérer tous les scores
+    const scoresRef = ref(database, "leaderboard");
     const snapshot = await get(scoresRef);
-    
+
     if (!snapshot.exists()) {
         console.log("⚠️ Aucun score trouvé dans Firebase.");
-        callback([]); // Retourne une liste vide si rien n'est trouvé
+        callback([]);
         return;
     }
 
     let scores = [];
     snapshot.forEach(child => scores.push(child.val()));
 
-    // 🔹 Trier par score décroissant et garder les 5 meilleurs
-    scores = scores.sort((a, b) => b.score - a.score).slice(0, 5);
+    console.log("🔥 Données complètes récupérées :", scores);
 
-    console.log("🏆 Scores récupérés et triés :", scores);
+    // 🔹 Trier en ordre décroissant AVANT de couper à 5
+    scores.sort((a, b) => b.score - a.score);
+    scores = scores.slice(0, 5); 
+
+    console.log("🏆 Scores triés et limités à 5 :", scores);
 
     callback(scores);
 }
