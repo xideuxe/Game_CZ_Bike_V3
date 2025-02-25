@@ -25,8 +25,9 @@ export function saveScore(playerName, score) {
 
 // 🔥 Fonction pour récupérer les meilleurs scores
 export async function getLeaderboard(callback) {
-    const scoresRef = query(ref(database, "leaderboard"), orderByChild("score"));
+    const scoresRef = ref(database, "leaderboard"); // Pas de orderByChild()
     const snapshot = await get(scoresRef);
+    console.log("🔥 Données brutes récupérées :", snapshot.val());
     let scores = [];
 
     snapshot.forEach(child => scores.push(child.val()));
