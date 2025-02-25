@@ -1,45 +1,34 @@
+// 🔥 Importer Firebase depuis le CDN
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getDatabase, ref, set, get, push, query, orderByChild, limitToLast } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+import { getDatabase, ref, push, query, orderByChild, limitToLast, get } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
-// Configuration Firebase
+// 🔥 Configuration Firebase (REMPLACE LES VALEURS AVEC LES TIENNES)
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    databaseURL: "YOUR_DATABASE_URL",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyDsOnq-gDJpYqEppwyp8bHLDkjiVsPlaDI",
+  authDomain: "cz-game-v3.firebaseapp.com",
+  databaseURL: "https://cz-game-v3-default-rtdb.firebaseio.com", // Ajoute cette ligne si elle manque
+  projectId: "cz-game-v3",
+  storageBucket: "cz-game-v3.appspot.com",
+  messagingSenderId: "538971726457",
+  appId: "1:538971726457:web:1f912285be9fd1efc12aa8"
 };
 
-// Initialisation Firebase
+// 🔥 Initialiser Firebase
 const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+const database = getDatabase(app);
 
-// Fonction pour sauvegarder un score
+// 🔥 Fonction pour sauvegarder un score dans la base de données Firebase
 export function saveScore(playerName, score) {
-    const scoresRef = ref(db, 'scores');
-
-    push(scoresRef, {
-        name: playerName,
-        score: score
-    }).then(() => {
-        console.log("Score sauvegardé !");
-    }).catch((error) => {
-        console.error("Erreur d'enregistrement :", error);
-    });
+    push(ref(database, "leaderboard"), { name: playerName, score: score });
 }
 
-// Fonction pour récupérer le leaderboard
-export function getLeaderboard(callback) {
-    const scoresRef = query(ref(db, 'scores'), orderByChild('score'), limitToLast(10));
-
-    get(scoresRef).then((snapshot) => {
-        if (snapshot.exists()) {
-            let scores = Object.values(snapshot.val()).sort((a, b) => b.score - a.score);
-            callback(scores);
-        }
-    }).catch((error) => {
-        console.error("Erreur de récupération du leaderboard :", error);
-    });
+// 🔥 Fonction pour récupérer les meilleurs scores
+export async function getLeaderboard(callback) {
+    const scoresRef = query(ref(database, "leaderboard"), orderByChild("score"), limitToLast(5));
+    const snapshot = await get(scoresRef);
+    const scores = [];
+    
+    snapshot.forEach(child => scores.push(child.val()));
+    scores.reverse(); // Trier du plus grand au plus petit
+    callback(scores);
 }
