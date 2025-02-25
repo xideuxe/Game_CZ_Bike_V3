@@ -26,6 +26,7 @@ export function saveScore(playerName, score) {
 // 🔥 Fonction pour récupérer les 5 meilleurs scores
 export async function getLeaderboard(callback) {
     const scoresRef = ref(database, "leaderboard");
+    console.log("📡 Chemin Firebase utilisé :", scoresRef.toString());
     const snapshot = await get(scoresRef);
 
     if (!snapshot.exists()) {
