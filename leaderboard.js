@@ -6,7 +6,13 @@ function showLeaderboard(finalScore) {
     saveScore(playerName, finalScore);
 
     getLeaderboard((scores) => {
-        let leaderboardHTML = scores.map(s => `<li>${s.name}: ${s.score}</li>`).join("");
+    let leaderboardHTML = scores.map((s, index) => `
+        <div class="leaderboard-entry">
+            <span class="rank">${index + 1}.</span>
+            <span class="name">${s.name}</span> 
+            <span class="score">${s.score}</span>
+        </div>
+    `).join("");
         document.getElementById("leaderboard-list").innerHTML = leaderboardHTML;
         document.getElementById("leaderboard").style.display = "block"; // Afficher
     });
