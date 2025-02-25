@@ -30,6 +30,9 @@ export async function getLeaderboard(callback) {
     const scores = [];
     
     snapshot.forEach(child => scores.push(child.val()));
+
+    console.log("🏆 Scores récupérés depuis Firebase :", scores); // 🔍 Vérifier les données récupérées
+    
     scores.reverse(); // Trier du plus grand au plus petit
     callback(scores);
 }
