@@ -14,7 +14,7 @@ function showLeaderboard(finalScore) {
         </div>
     `).join("");
         document.getElementById("leaderboard-list").innerHTML = leaderboardHTML;
-        document.getElementById("leaderboard").style.display = "block"; // Afficher
+        document.getElementById("CZ Race leaderboard").style.display = "block"; // Afficher
     });
 }
 
