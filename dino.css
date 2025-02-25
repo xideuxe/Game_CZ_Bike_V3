@@ -547,3 +547,58 @@ html[subframe] body {
   transition: transform 250ms cubic-bezier(0.4, 0.0, 1, 1) .4s;
   z-index: 2;
 }
+
+/* 🔥 Leaderboard Styling 🔥 */
+#leaderboard {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid black;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+  font-family: Arial, sans-serif;
+  width: 250px;
+  text-align: center;
+  display: none; /* Caché par défaut */
+}
+
+#leaderboard h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#leaderboard-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#leaderboard-list li {
+  font-size: 16px;
+  padding: 6px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+#leaderboard-list li:last-child {
+  border-bottom: none;
+}
+
+/* 🏆 Style spécial pour les top scores */
+#leaderboard-list li:nth-child(1) {
+  color: #FFD700; /* Or */
+  font-size: 18px;
+}
+
+#leaderboard-list li:nth-child(2) {
+  color: #C0C0C0; /* Argent */
+}
+
+#leaderboard-list li:nth-child(3) {
+  color: #CD7F32; /* Bronze */
+}
