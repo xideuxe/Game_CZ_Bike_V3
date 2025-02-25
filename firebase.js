@@ -27,24 +27,31 @@ export function saveScore(playerName, score) {
 export async function getLeaderboard(callback) {
     const scoresRef = ref(database, "leaderboard");
     console.log("📡 Chemin Firebase utilisé :", scoresRef.toString());
-    const snapshot = await get(scoresRef);
+    
+    try {
+        const snapshot = await get(scoresRef);
+        
+        if (!snapshot.exists()) {
+            console.log("⚠️ Aucun score trouvé dans Firebase.");
+            callback([]);
+            return;
+        }
 
-    if (!snapshot.exists()) {
-        console.log("⚠️ Aucun score trouvé dans Firebase.");
-        callback([]);
-        return;
+        let scores = [];
+        snapshot.forEach(child => {
+            scores.push(child.val());  // 🔥 Correction ici
+        });
+
+        console.log("🔥 Données complètes récupérées :", scores);
+
+        // 🔹 Trier en ordre décroissant AVANT de couper à 5
+        scores.sort((a, b) => b.score - a.score);
+        scores = scores.slice(0, 5);
+
+        console.log("🏆 Scores triés et limités à 5 :", scores);
+
+        callback(scores);
+    } catch (error) {
+        console.error("🚨 Erreur lors de la récupération des scores :", error);
     }
-
-    let scores = [];
-    snapshot.forEach(child => scores.push(child.val()));
-
-    console.log("🔥 Données complètes récupérées :", scores);
-
-    // 🔹 Trier en ordre décroissant AVANT de couper à 5
-    scores.sort((a, b) => b.score - a.score);
-    scores = scores.slice(0, 5); 
-
-    console.log("🏆 Scores triés et limités à 5 :", scores);
-
-    callback(scores);
 }
