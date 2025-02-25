@@ -2,7 +2,7 @@ import { saveScore, getLeaderboard } from "./firebase.js";
 
 function showLeaderboard(finalScore) {
     console.log("Final Score reçu par showLeaderboard :", finalScore);
-    let playerName = prompt("Your name :") || "Anonyme";
+    let playerName = prompt("Your name :") || "Unknown_Broccoli";
     saveScore(playerName, finalScore);
 
     getLeaderboard((scores) => {
