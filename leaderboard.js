@@ -15,4 +15,6 @@ function hideLeaderboard() {
     document.getElementById("leaderboard").style.display = "none";
 }
 
-export { showLeaderboard, hideLeaderboard };
+// Exposer les fonctions pour qu'elles soient accessibles globalement
+window.showLeaderboard = showLeaderboard;
+window.hideLeaderboard = hideLeaderboard;
